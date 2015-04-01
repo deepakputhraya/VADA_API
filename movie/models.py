@@ -9,6 +9,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=50)
     director = models.CharField(max_length=50)
     language = models.CharField(max_length=30)
+    description = models.CharField(max_length=400,null=True)
     rating = models.IntegerField()
     duration = models.IntegerField()
     genre = models.ManyToManyField(MovieGenre)

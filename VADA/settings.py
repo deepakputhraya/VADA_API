@@ -40,9 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
+    'authentication',
     'movie',
     'game',
+    'cart',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,3 +102,13 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media').replace('\\','/')
 
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
