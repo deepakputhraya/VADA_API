@@ -14,6 +14,7 @@ class Game(models.Model):
     poster = models.ImageField()
     releaseDate = models.DateField()
     description = models.CharField(max_length=400,null=True)
-
+    deposit = models.IntegerField(null=False,default=100)
+    rent = models.IntegerField(null=False,default=50)
     def __unicode__(self):
         return u'%s' % (self.title)

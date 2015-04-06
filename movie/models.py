@@ -16,6 +16,7 @@ class Movie(models.Model):
     stock = models.IntegerField()
     poster = models.ImageField(upload_to='movie')
     releaseDate = models.DateField()
-
+    deposit = models.IntegerField(null=False,default=100)
+    rent = models.IntegerField(null=False,default=50)
     def __unicode__(self):
         return u'%s' % (self.title)

@@ -9,4 +9,4 @@ class GameGenreSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'title','genre','poster','developer','rating','description','releaseDate')
+        fields = ('id', 'title','genre','stock','poster','developer','rating','description','releaseDate','deposit','rent')

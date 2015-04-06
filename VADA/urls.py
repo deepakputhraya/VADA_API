@@ -31,3 +31,5 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}))
+
+admin.site.site_header = 'VADA Administrator'

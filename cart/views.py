@@ -21,15 +21,25 @@ def add_cart(request):
 	if request.DATA['type']=='movie' and request.user.is_authenticated():
 		movie=Movie.objects.get(pk=request.DATA['id'])
 		cart=ShoppingCart.objects.get(user=user)
-		cart.movies.add(movie)
-		cart.save()
-		return Response(status=200)
+		if movie.stock>0:
+			movie.stock=movie.stock-1
+			movie.save()
+			cart.movies.add(movie)
+			cart.save()
+			return Response(status=200)
+		else:
+			return Response(status=500)
 	if request.DATA['type']=='game' and request.user.is_authenticated():
 		game=Game.objects.get(pk=request.DATA['id'])
 		cart=ShoppingCart.objects.get(user=user)
-		cart.games.add(game)
-		cart.save()
-		return Response(status=200)
+		if game.stock>0:
+			game.stock=game.stock-1
+			game.save()
+			cart.games.add(game)
+			cart.save()
+			return Response(status=200)
+		else:
+			return Response(status=500)
 	#serializer=UserViewSet(serialized)
 	return Response(status=500)
 
