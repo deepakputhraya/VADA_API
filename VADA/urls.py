@@ -6,7 +6,7 @@ from authentication import views
 from django.conf import settings
 from rest_framework import routers
 from authentication.views import UserViewSet,login,logout,authenticate,create_auth
-from cart.views import add_cart,get_cart
+from cart.views import add_cart,get_cart,remove_cart,check_out
 
 router = routers.DefaultRouter()
 router.register(r'users',UserViewSet)
@@ -26,6 +26,8 @@ urlpatterns = patterns('',
 	url(r'^api/create_auth',create_auth),
 	url(r'^api/addToCart',add_cart),
     url(r'^api/getCart',get_cart),
+    url(r'^api/removeCart',remove_cart),
+    url(r'^api/checkOut',check_out),
 	)
 
 urlpatterns += patterns('',

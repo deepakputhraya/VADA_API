@@ -53,3 +53,49 @@ def get_cart(request):
 		return Response(serializer.data,status=200)
 	#serializer=UserViewSet(serialized)
 	return Response(status=500)
+
+@api_view(['POST'])
+@csrf_exempt
+def remove_cart(request):
+	user=request.user;
+	if 	request.user.is_authenticated():
+		pk=request.DATA['id']
+		cart=ShoppingCart.objects.get(user=user)
+		serializer=CartSerializer(cart)
+		if request.DATA['type'] == 'movie':
+			movie=Movie.objects.get(pk=pk)
+			movie.stock=movie.stock+1
+			movie.save()
+			movies=cart.movies
+			movie=movies.get(pk=pk)
+			print movie
+			print movies
+			movies.remove(movie)
+			cart.save()
+		else:
+			game=Game.objects.get(pk=pk)
+			game.stock=game.stock+1
+			game.save()
+			games=cart.games
+			game=games.get(pk=pk)
+			print games
+			print game
+			games.remove(game)
+			cart.save()
+		return Response(serializer.data,status=200)
+	#serializer=UserViewSet(serialized)
+	return Response(status=500)
+
+@api_view(['POST'])
+@csrf_exempt
+def check_out(request):
+	user=request.user;
+	if 	request.user.is_authenticated():
+		cart=ShoppingCart.objects.get(user=user)
+		cart.games=()
+		cart.movies=()
+		cart.save()
+		serializer=CartSerializer(cart)
+		return Response(serializer.data,status=200)
+	#serializer=UserViewSet(serialized)
+	return Response(status=500)
